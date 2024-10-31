@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="{% static "deps/css/styles.css" %}">
+</head>
+<body>
+
+<header>
+    <h1>Тестирование</h1>
+</header>
+
+<nav>
+    <button onclick="location.href='teacher_login.html'">Авторизация для преподавателя</button>
+    <button onclick="location.href='student_login.html'">Авторизация для студента</button>
+</nav>
+
+<div class="content">
+    <h2>О проведении тестирования</h2>
+    <p>Добро пожаловать на платформу для проведения тестирования! Здесь вы можете пройти тесты, разработанные для оценки знаний и навыков. 
+       Тестирование проводится регулярно, и результаты помогут вам определить уровень подготовки и выявить области, требующие улучшения.</p>
+    <p>Для преподавателей доступна возможность создания и управления тестами, а также анализа результатов студентов. 
+       Студенты могут проходить тесты в удобное время и отслеживать свой прогресс.</p>
+</div>
+    <img src="{% static "deps/images/vsu.png" %}" />
+</body>
+</html>
