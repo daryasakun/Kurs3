@@ -15,8 +15,10 @@
 </header>
 
 <nav>
-    <button onclick="location.href='teacher_login.html'">Авторизация для преподавателя</button>
-    <button onclick="location.href='student_login.html'">Авторизация для студента</button>
+    
+    <button onclick="location.href='{% url "admin:index" %}'">Авторизация для преподавателя</button>
+    
+    <button onclick="location.href='{% url "admin:index" %}'">Авторизация для студента</button>
 </nav>
 
 <div class="content">
