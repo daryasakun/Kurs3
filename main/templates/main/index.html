@@ -1,26 +1,22 @@
+{% extends "base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}
     <title>Главная страница</title>
+{% endblock %}
+ 
+{% block css %}
     <link rel="stylesheet" href="{% static "deps/css/styles.css" %}">
-</head>
-<body>
+{% endblock %}
 
+
+{% block header %}
 <header>
     <h1>Тестирование</h1>
 </header>
+{% endblock %}      
 
-<nav>
-    
-    <button onclick="location.href='{% url "admin:index" %}'">Авторизация для преподавателя</button>
-    
-    <button onclick="location.href='{% url "admin:index" %}'">Авторизация для студента</button>
-</nav>
-
+{% block cont %}
 <div class="content">
     <h2>О проведении тестирования</h2>
     <p>Добро пожаловать на платформу для проведения тестирования! Здесь вы можете пройти тесты, разработанные для оценки знаний и навыков. 
@@ -29,5 +25,8 @@
        Студенты могут проходить тесты в удобное время и отслеживать свой прогресс.</p>
 </div>
     <img src="{% static "deps/images/vsu.png" %}" />
-</body>
-</html>
+
+{% endblock %}
+
+
+

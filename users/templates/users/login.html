@@ -1,33 +1,69 @@
+{% extends "base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}
     <title>Форма авторизации</title>
-    <link rel="stylesheet" href="{% static "deps/css/login_form.css" %}">
-</head>
-<body>
+{% endblock %}
+ 
 
-<div class="login-container">
+{% block css %}
+
+    
+    <link rel="stylesheet" href="{% static "deps/css/styles.css" %}">
+    <link rel="stylesheet" href="{% static "deps/css/login_form.css" %}">
+    
+
+{% endblock %}
+
+
+{% block header %}
+<header>
     <h2>Авторизация</h2>
-    <form action="/login" method="POST"> <!-- Укажите правильный путь для обработки формы -->
-        <div class="form-group">
-            <label for="username">Имя пользователя</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Пароль</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit">Войти</button>
-    </form>
-    <div class="links">
-        
-        <a href="{% url "users:registration"%}">Создать аккаунт</a>
+</header>
+{% endblock %}      
+
+{% block cont %}
+
+<form action="{% url "users:login"%}" method="post" class="login-form">
+
+   {% csrf_token %}
+    
+    <div>
+        <label for="id_username">Имя пользователя</label>
+        <input type="text"  value="{{form.username.value}}" name="username" class="form-control" id="id_username" placeholder="Введите ваш e-mail">
     </div>
+    <div>
+        <label for="id_password">Пароль</label>
+        <input type="password" class="form-control"  name="password" id="id_password" placeholder="Введите ваш пароль">
+    </div>
+    {% if form.non_field_errors %}
+    <p>Имя пользователя или пароль введены неверно</p>
+    {% endif %}
+
+
+
+    <!-- <div>
+        <label for="{{ form.username.if_for_label}}">Имя пользователя (E-mail)</label>
+        {{form.username}}
+    </div>
+
+    <div>
+        <label for="{{ form.password.if_for_label}}">Пароль</label>
+        {{form.password}}
+    </div> -->
+
+
+
+    
+    
+    <button type="submit" class="btn-submit">Войти</button>
+</form>
+<div class="links">
+    
+    <a href="{% url "users:registration"%}">Создать аккаунт</a>
+</div>
 </div>
 
-</body>
-</html>
+{% endblock %}
+
+

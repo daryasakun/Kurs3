@@ -1,60 +1,28 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+.form-control {
+    display: block;                /* Устанавливает элемент как блочный */
+    width: 100%;                  /* Ширина 100% от родительского контейнера */
+    padding: 10px;               /* Внутренние отступы */
+    font-size: 1rem;             /* Размер шрифта */
+    font-family: Arial, sans-serif; /* Шрифт */
+    color: #495057;              /* Цвет текста */
+    background-color: #fff;      /* Цвет фона */
+    border: 1px solid #ced4da;   /* Цвет границы */
+    border-radius: 0.25rem;      /* Радиус границы */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Плавный переход для границ и теней */
 }
 
-.login-container {
-    background: white;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.form-control:focus {
+    border-color: #80bdff;       /* Цвет границы при фокусе */
+    outline: 0;                  /* Убираем стандартный контур */
+    box-shadow: 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Тень при фокусе */
 }
 
-h2 {
-    text-align: center;
+.form-control::placeholder {
+    color: #6c757d;              /* Цвет плейсхолдера */
+    opacity: 1;                  /* Прозрачность плейсхолдера */
 }
 
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-.links {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.links a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: #007bff;
+.form-control:disabled, .form-control[readonly] {
+    background-color: #e9ecef;   /* Цвет фона для отключенных полей */
+    opacity: 1;                  /* Убираем прозрачность */
 }
