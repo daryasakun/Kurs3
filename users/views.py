@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from users.forms import UserLoginForm
+from django.shortcuts import render, redirect
+from .forms import UserLoginForm, StudentRegistrationForm
 from django.contrib import auth
 from django.urls import reverse
 from django.http import HttpResponseRedirect
@@ -26,8 +26,30 @@ def login(request):
     return render(request, 'users/login.html', context)
 
 
+#def registration(request):
+#    if request.method == 'POST':
+#        form = UserRegistrationForm(data=request.POST)
+#        if form.is_valid():
+#            form.save()
+#            return HttpResponseRedirect(reverse('users:login'))
+#    else:
+#        form = UserRegistrationForm()
+#    return render(request, 'users/registration.html')
+
 def registration(request):
-    return render(request, 'users/registration.html')
+    if request.method == 'POST':
+        form = StudentRegistrationForm(request.POST)
+        if form.is_valid():
+            # Сохраняем нового студента в базе данных
+            user = form.save()  # Сохраняем студента (объект User)
+            # После регистрации можно автоматически войти в систему
+            # from django.contrib.auth import login
+            # login(request, user)
+            return redirect('main:index')  # Перенаправляем на страницу входа
+    else:
+        form = StudentRegistrationForm()
+
+    return render(request, 'users/registrati.html', {'form': form})
 
 def profile(request):
     return render(request, 'users/profile.html')

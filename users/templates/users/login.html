@@ -27,18 +27,33 @@
 <form action="{% url "users:login"%}" method="post" class="login-form">
 
    {% csrf_token %}
+   {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            <p>Введены неверные данные</p>
+        </div>
+    {% endif %}
     
     <div>
         <label for="id_username">Имя пользователя</label>
-        <input type="text"  value="{{form.username.value}}" name="username" class="form-control" id="id_username" placeholder="Введите ваш e-mail">
+        <input type="text"  value="{% if form.username.value %} {{form.username.value}}{% endif %}" name="username" class="form-control" id="id_username" placeholder="Введите ваш e-mail" required>
     </div>
     <div>
         <label for="id_password">Пароль</label>
-        <input type="password" class="form-control"  name="password" id="id_password" placeholder="Введите ваш пароль">
+        <input type="password" class="form-control" value="{% if form.password.value %} {{form.password.value}}{% endif %}" name="password" id="id_password" placeholder="Введите ваш пароль" required>
     </div>
-    {% if form.non_field_errors %}
-    <p>Имя пользователя или пароль введены неверно</p>
-    {% endif %}
+    {% if form.username.errors %}
+            <div class="alert alert-danger">
+                {{ form.username.errors }}
+            </div>
+        {% endif %}
+    </div>
+    
+    {% if form.password.errors %}
+            <div class="alert alert-danger">
+                {{ form.password.errors }}
+            </div>
+        {% endif %}
+    </div>
 
 
 

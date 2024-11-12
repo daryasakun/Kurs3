@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация студента</title>
+    <link rel="stylesheet" href="{% static "deps/css/registr.css" %}"> 
+</head>
+<body>
+
+<div class="registration-container">
+    <h2>Регистрация студента</h2>
+    <form action="{% url "users:registration" %}" method="post"> 
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_full_name">ФИО</label>
+            <input type="text" id="id_full_name" name="full_name" maxlength="100" required
+                placeholder="Введите ваше ФИО"
+                value="{% if form.full_name.value %} {{form.full_name.value}}{% endif %}"
+            >
+            {% if form.full_name.errors %}
+                    <div>{{form.full_name.errors}}</div>
+            {% endif %}
+
+        </div>
+        
+        <div class="form-group">
+            <label for="id_email">Электронная почта</label>
+            <input type="email" id="id_email" name="email" maxlength="100" 
+            placeholder="Введите ваш email"
+            value="{% if form.email.value %} {{form.email.value}}{% endif %}"
+            required>
+            {% if form.email.errors %}
+                    <div>{{form.email.errors}}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_phone_number">Номер телефона</label>
+            <input type="tel" id="id_phone_number" 
+            value="{% if form.phone_number.value %} {{form.phone_number.value}}{% endif %}"
+
+            name="phone_number" maxlength="15" 
+            placeholder="Введите номер телефона"
+            required pattern="8[0-9]{10}">
+
+            {% if form.phone_number.errors %}
+                    <div>{{form.phone_number.errors}}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_group_number">Номер группы</label>
+            <input type="text" id="id_group_number" name="group_number" 
+            value="{% if form.group_number.value %} {{form.group_number.value}}{% endif %}"
+            placeholder="Введите номер группы"
+            maxlength="20" required>
+            {% if form.group_number.errors %}
+                    <div>{{form.group_number.errors}}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_direction_of_training">Направление подготовки</label>
+            <select id="id_direction_of_training" name="direction_of_training" required>
+                <option value="">Выберите направление</option>
+                <option value="Программная инженерия">Программная инженерия</option>
+                <option value="Информационные системы и технологии">Информационные системы и технологии</option>
+                <option value="Математика и компьютерные науки">Математика и компьютерные науки</option>
+                <option value="Компьютерная безопасность">Компьютерная безопасность</option>
+                <option value="Информационная безопасность">Информационная безопасность</option>
+                <option value="Прикладная информатика">Прикладная информатика</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="id_password1">Введите пароль</label>
+            <input type="password" id="id_password1" name="password1" 
+            value="{% if form.password1.value %} {{form.password1.value}}{% endif %}"
+            placeholder="Придумайте пароль"
+            maxlength="20" required>
+            {% if form.password1.errors %}
+                    <div>{{form.password1.errors}}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label for="id_password2">Повторите пароль</label>
+            <input type="password" id="id_password2" name="password2" maxlength="20" 
+            value="{% if form.password2.value %} {{form.password2.value}}{% endif %}"
+            placeholder="Повторите пароль"
+            required>
+            {% if form.password2.errors %}
+                    <div>{{form.password2.errors}}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    <div class="links">
+        <a href="{% url "users:login" %}">Уже есть аккаунт? Войти</a>
+    </div>
+</div>
+
+</body>
+</html>
