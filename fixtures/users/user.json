@@ -1,0 +1,114 @@
+[
+{
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$tnMicmIYb754jF9baxsbFv$RWFc9/I1/J7wFun6guMn0jeRPb5FBz2F1P++xGPoNNQ=",
+        "last_login": "2024-11-17T09:15:21.785Z",
+        "is_superuser": true,
+        "full_name": "Darya",
+        "email": "5541779@mail.ru",
+        "phone_number": null,
+        "is_active": true,
+        "is_staff": true,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$zI0JMG0XPQ3p1FoR9nZD92$PbteUwS+RaW4qryMv8+Jme2YQ25/1OVE87SNl6dYh+w=",
+        "last_login": null,
+        "is_superuser": false,
+        "full_name": "Дарья Александровна Сакун",
+        "email": "554177@mail.ru",
+        "phone_number": "89525541779",
+        "is_active": true,
+        "is_staff": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$ZADmJm7XMb4GbxJVuzP4Mm$gWkpVC3GAy/wIQSnPuT8CW4EsBRQqiW5HHzqB+C4cJo=",
+        "last_login": "2024-11-13T10:50:37.905Z",
+        "is_superuser": false,
+        "full_name": "Студент1",
+        "email": "888@mail.ru",
+        "phone_number": "89920514536",
+        "is_active": true,
+        "is_staff": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$H1oAQlK33xSf6ACkyTXb4h$z0SbCp7knHetrOaRuYKow1T+N5oTaxGPqvfoNmP5iVs=",
+        "last_login": null,
+        "is_superuser": false,
+        "full_name": "ffff",
+        "email": "554@mail.ru",
+        "phone_number": "8",
+        "is_active": true,
+        "is_staff": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$F3REgdSKy9G1epzUpEDn4y$GuDCia7dIO3XUF/TrhKbymkNAP5giuR0SAJqDAz9tyU=",
+        "last_login": null,
+        "is_superuser": false,
+        "full_name": "Darya",
+        "email": "87@mail.ru",
+        "phone_number": "8888",
+        "is_active": true,
+        "is_staff": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$2GQ9ZYxCI3hPkUMIEvfET0$E3no24flH0GoMdmhozSTT/8j8r8eydpdW3BcAtd3q3U=",
+        "last_login": null,
+        "is_superuser": false,
+        "full_name": "8881@mail.ru",
+        "email": "alexeeva@com.ru",
+        "phone_number": "88005553535",
+        "is_active": true,
+        "is_staff": false,
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "users.user",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$Mdq0Txz881MlfAn6GJsdbT$2bXGuUd2KHFuPvoWJhuNe9ThZaCtpk0b8fue/QCyPSc=",
+        "last_login": "2024-11-17T09:14:58.691Z",
+        "is_superuser": false,
+        "full_name": "Alexey",
+        "email": "111222333@mail.ru",
+        "phone_number": "89678900111",
+        "is_active": true,
+        "is_staff": false,
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

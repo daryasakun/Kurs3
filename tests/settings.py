@@ -43,6 +43,8 @@ INSTALLED_APPS = [
 
     'main',
     'users',
+    'test_passing',
+    'results',
 
 ]
 #промежуточное ПО

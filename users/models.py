@@ -47,6 +47,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
+    def __str__(self) -> str:
+        return str(self.email)
+    
+
 class Student(User):
     group_number = models.CharField(max_length=20, blank=True, null=True)
     direction_of_training = models.CharField(max_length=50, blank=True, null=True)
@@ -63,4 +67,6 @@ class Teacher(User):
         db_table = 'teacher'
         verbose_name = 'Преподаватель'
         verbose_name_plural = 'Преподаватели'
+
+    
 

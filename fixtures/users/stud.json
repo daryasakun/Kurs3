@@ -1,0 +1,42 @@
+[
+{
+    "model": "users.student",
+    "pk": 6,
+    "fields": {
+        "group_number": "4",
+        "direction_of_training": "222"
+    }
+},
+{
+    "model": "users.student",
+    "pk": 7,
+    "fields": {
+        "group_number": "6",
+        "direction_of_training": "gh"
+    }
+},
+{
+    "model": "users.student",
+    "pk": 8,
+    "fields": {
+        "group_number": "4",
+        "direction_of_training": "222"
+    }
+},
+{
+    "model": "users.student",
+    "pk": 9,
+    "fields": {
+        "group_number": "4",
+        "direction_of_training": "Программная инженерия"
+    }
+},
+{
+    "model": "users.student",
+    "pk": 10,
+    "fields": {
+        "group_number": "2",
+        "direction_of_training": "Программная инженерия"
+    }
+}
+]
