@@ -9,6 +9,6 @@ urlpatterns = [
     #path('registration/', views.registration, name='registration'),
     path('registration/', views.registration, name='registration'),
 
-    path('profile/', views.profile, name='profile'),
+    path('profile/', views.user_profile, name='profile'),
     path('logout/', views.logout, name='logout'),
 ]

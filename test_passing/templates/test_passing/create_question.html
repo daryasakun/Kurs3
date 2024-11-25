@@ -1,0 +1,44 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+    Добавить вопросы
+{% endblock title %}
+
+{% block cont %}
+    <h1>Добавить вопросы к тесту: {{ test.title }}</h1>
+    
+    <!-- Форма для добавления вопросов -->
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}  <!-- Форма для управления набором форм -->
+
+        {% for form in formset %}
+            <div class="question-block">
+                <h3>Вопрос {{ forloop.counter }}</h3>
+                {{ form.as_p }}  <!-- Отображение полей формы -->
+
+                <!-- Выводим ответы, если вопрос уже создан -->
+                {% if form.instance.id %}
+                    <h4>Ответы:</h4>
+                    <ul>
+                        {% for answer in form.instance.answer_set.all %}
+                            <li>
+                                {{ answer.text }} {% if answer.correctness_of_answer %} (Правильный ответ) {% endif %}
+                            </li>
+                        {% empty %}
+                            <li>Нет ответов для этого вопроса.</li>
+                        {% endfor %}
+                    </ul>
+
+                    <!-- Ссылка для добавления ответов -->
+                    <a href="{% url 'test_passing:create_answer' question_id=form.instance.id %}">Добавить ответы</a>
+                {% endif %}
+            </div>
+            <hr>
+        {% endfor %}
+
+        <button type="submit">Сохранить вопросы</button>
+        <a href="{% url 'test_passing:edit_test' test.pk %}">Вернуться к редактированию данных теста </a>
+    </form>
+{% endblock cont %}

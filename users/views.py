@@ -3,7 +3,11 @@ from .forms import UserLoginForm, StudentRegistrationForm
 from django.contrib import auth
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from test_passing.models import Test
+from django.utils.functional import SimpleLazyObject
+from users.models import Teacher, User
 
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def login(request):
     if request.method == 'POST':
@@ -14,7 +18,7 @@ def login(request):
             user = auth.authenticate(username=username, password=password)
             if user:
                 auth.login(request, user)
-                return HttpResponseRedirect(reverse('main:index'))
+                return HttpResponseRedirect(reverse('users:profile'))
     else:
         form = UserLoginForm()
 
@@ -51,8 +55,28 @@ def registration(request):
 
     return render(request, 'users/registrati.html', {'form': form})
 
-def profile(request):
-    return render(request, 'users/profile.html')
+
 
 def logout(request):
     return render(request, 'users/logout.html')
+
+
+
+
+
+@login_required
+def user_profile(request):
+    user = request.user
+
+    # Если это преподаватель, то получаем его тесты
+    if isinstance(user, User):
+        created_tests = Test.objects.filter(teacher_id=user.id)
+        print(f"Created tests: {created_tests}")
+    else:
+        created_tests = []
+
+    context = {
+        'user': user,
+        'created_tests': created_tests
+    }
+    return render(request, 'users/profile.html', context)

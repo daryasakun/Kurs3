@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Детали теста: {{ test.title }}
+{% endblock title %}
+
+{% block cont %}
+    <h1>{{ test.title }}</h1>
+    <p>{{ test.description }}</p>
+    <p>Время выполнения: {{ test.time_of_execute }}</p>
+    <p>Создан: {{ test.date_of_creation }}</p>
+    <p>Предметная область: {{ test.subject_area }}</p>
+    <p>Учитель: {{ test.teacher }}</p>
+    
+    {% if request.user.is_authenticated and test.teacher == request.user.teacher %}
+        <a href="{% url 'test_passing:edit_test' test.pk %}">Редактировать тест</a>
+    {% endif %}
+{% endblock cont %}
+

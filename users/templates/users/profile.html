@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+    Профиль пользователя
+{% endblock title %}
+
+{% block cont %}
+    <h1>Профиль пользователя</h1>
+
+    <p><strong>Имя:</strong> {{ user.full_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+
+    {% if user.is_authenticated and user.teacher %}
+        <h2>Мои тесты</h2>
+        <ul>
+            {% for test in created_tests %}
+                <li>
+                    <a href="{% url 'test_passing:edit_test' test.id %}">{{ test.title }}</a>
+                </li>
+            {% empty %}
+                <li>Вы еще не создали ни одного теста.</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'test_passing:create_test' %}" class="btn btn-primary">Создать тест</a>
+    {% else %}
+        <p>Вы не являетесь преподавателем.</p>
+    {% endif %}
+{% endblock cont %}

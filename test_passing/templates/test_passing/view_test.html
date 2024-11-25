@@ -1,0 +1,26 @@
+
+
+{% block content %}
+    <h1>{{ test.title }}</h1>
+    <p><strong>Описание:</strong> {{ test.description }}</p>
+    <p><strong>Предмет:</strong> {{ test.subject_area }}</p>
+    <p><strong>Время выполнения:</strong> {{ test.time_of_execute }}</p>
+    <p><strong>Создано:</strong> {{ test.date_of_creation }}</p>
+
+    <h2>Вопросы:</h2>
+    <ul>
+        {% for question in questions %}
+            <li>
+                <strong>{{ question.text }}</strong> ({{ question.question_type }})
+                <ul>
+                    {% for answer in question.answer_set.all %}
+                        <li>{{ answer.text }} {% if answer.correctness_of_answer %}(правильный){% endif %}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% empty %}
+            <p>Вопросы не добавлены.</p>
+        {% endfor %}
+    </ul>
+{% endblock %}
+

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Редактирование теста: {{ test.title }}
+{% endblock title %}
+
+{% block cont %}
+    <h1>Редактировать тест: {{ test.title }}</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        <h2>Основные данные теста</h2>
+        {{ form.as_p }}
+
+
+        <a href="{% url 'test_passing:create_question' test.id %}">Редактировать вопросы и ответы теста {{ test.title }}</a>
+        <h2>Вопросы</h2>
+        {{ question_formset.management_form }}
+        {% for form in question_formset %}
+            <div>
+                {{ form.as_p }}
+                {% if form.instance.pk %}
+                    <p><a href="{% url 'test_passing:delete_question' form.instance.pk %}">Удалить вопрос</a></p>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        {% if request.user.is_authenticated and test.teacher == request.user.teacher %}
+            <button type="submit">Сохранить</button>
+        {% else %}
+            <p>У вас нет прав редактировать этот тест.</p>
+        {% endif %}
+        
+        <a href="{% url 'test_passing:test_detail' test.pk %}">Отмена</a>
+    </form>
+{% endblock cont %}
+
