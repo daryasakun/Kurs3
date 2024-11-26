@@ -1,5 +1,5 @@
 from django.db import models
-
+from users.models import Student
 # Create your models here.
 
 
@@ -38,3 +38,23 @@ class Answer(models.Model):
         db_table = 'answer'
         verbose_name = 'Ответ'
         verbose_name_plural = 'Ответы'
+
+
+class TestSession(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    completed = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ('student', 'test')
+
+
+class TestAnswer(models.Model):
+    test_session = models.ForeignKey(TestSession, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    
+    class Meta:
+        unique_together = ('test_session', 'question')

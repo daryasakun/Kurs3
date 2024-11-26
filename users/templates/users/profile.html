@@ -27,4 +27,23 @@
     {% else %}
         <p>Вы не являетесь преподавателем.</p>
     {% endif %}
+
+
+
+    {% if user.is_authenticated and user.student %}
+    <h2>Доступные тесты</h2>
+    <ul>
+        {% for test in created_tests %}
+            <li>
+                <a href="{% url 'test_passing:test_start' test.id %}">{{ test.title }}</a> - Время выполнения: {{ test.time_of_execute }}
+            </li>
+        {% empty %}
+            <li>Вы не имеете доступных тестов.</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Вы не являетесь студентом.</p>
+{% endif %}
+
+
 {% endblock cont %}

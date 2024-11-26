@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Начало теста</title>
+</head>
+<body>
+    <h1>Добро пожаловать в тест "{{ test.title }}"</h1>
+    <p>Описание теста: {{ test.description }}</p>
+    <p>Предметная область: {{ test.subject_area }}</p>
+    <p>Время выполнения: {{ test.time_of_execute }}</p>
+
+    <form action="{% url 'test_passing:start_test' test.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Начать тест</button>
+    </form>
+</body>
+</html>

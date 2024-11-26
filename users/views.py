@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from test_passing.models import Test
 from django.utils.functional import SimpleLazyObject
-from users.models import Teacher, User
+from users.models import Teacher, User, Student
 
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -60,20 +60,22 @@ def registration(request):
 def logout(request):
     return render(request, 'users/logout.html')
 
-
-
-
-
 @login_required
 def user_profile(request):
     user = request.user
+    #print(isinstance(user, Student))
+    
+
 
     # Если это преподаватель, то получаем его тесты
-    if isinstance(user, User):
+    if hasattr(user, 'teacher'):
         created_tests = Test.objects.filter(teacher_id=user.id)
         print(f"Created tests: {created_tests}")
     else:
         created_tests = []
+
+    if hasattr(user, 'student'):
+        created_tests = Test.objects.all()  # Все тесты
 
     context = {
         'user': user,
