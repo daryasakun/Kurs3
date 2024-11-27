@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Начало теста</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}
+    Начало теста
+{% endblock title %}
+
+{% block cont %}
     <h1>Добро пожаловать в тест "{{ test.title }}"</h1>
     <p>Описание теста: {{ test.description }}</p>
     <p>Предметная область: {{ test.subject_area }}</p>
@@ -15,5 +14,4 @@
         {% csrf_token %}
         <button type="submit">Начать тест</button>
     </form>
-</body>
-</html>
+{% endblock cont %}

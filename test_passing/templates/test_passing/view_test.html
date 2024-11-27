@@ -1,6 +1,10 @@
+{% extends "base.html" %}
 
+{% block title %}
+    Детали теста: {{ test.title }}
+{% endblock title %}
 
-{% block content %}
+{% block cont %}
     <h1>{{ test.title }}</h1>
     <p><strong>Описание:</strong> {{ test.description }}</p>
     <p><strong>Предмет:</strong> {{ test.subject_area }}</p>
@@ -22,5 +26,6 @@
             <p>Вопросы не добавлены.</p>
         {% endfor %}
     </ul>
-{% endblock %}
+{% endblock cont %}
+
 

@@ -1,9 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Прохождение теста</title>
+{% extends "base.html" %}
+
+{% block title %}
+    Прохождение теста: {{ test_session.test.title }}
+{% endblock title %}
+
+{% block cont %}
+    <h1>Тест: {{ test_session.test.title }}</h1>
+    <p id="timer"></p> <!-- Таймер будет обновляться через JavaScript -->
+
+    <h2>Вопрос: {{ question.text }}</h2>
+
+    <form action="{% url 'test_passing:submit_answer' session_id=test_session.id %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="question_id" value="{{ question.id }}">
+
+        {% for answer in question.answer_set.all %}
+            <div>
+                <label>
+                    <input type="radio" name="answer" value="{{ answer.id }}">
+                    {{ answer.text }}
+                </label>
+            </div>
+        {% endfor %}
+
+        <button type="submit">Ответить</button>
+    </form>
+
     <script>
         // Проверяем, что test_session.end_time передан корректно
         const endTime = new Date("{{ test_session.end_time|date:'Y-m-d H:i:s' }} UTC");
@@ -39,28 +61,4 @@
             console.error('End time is not valid');
         }
     </script>
-</head>
-<body>
-    <h1>Тест: {{ test_session.test.title }}</h1>
-    <p id="timer"></p>  <!-- Здесь отображается оставшееся время -->
-
-    <h2>Вопрос: {{ question.text }}</h2>
-
-    <form action="{% url 'test_passing:submit_answer' session_id=test_session.id %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="question_id" value="{{ question.id }}">
-    
-        {% for answer in question.answer_set.all %}
-            <div>
-                <label>
-                    <input type="radio" name="answer" value="{{ answer.id }}">
-                    {{ answer.text }}
-                </label>
-            </div>
-        {% endfor %}
-    
-        <button type="submit">Ответить</button>
-    </form>
-    
-</body>
-</html>
+{% endblock cont %}

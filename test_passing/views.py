@@ -8,6 +8,7 @@ from django.utils import timezone
 from results.models import Result
 from django.http import HttpResponseForbidden
 from django.utils.timezone import now
+from django.contrib import messages
 # Декоратор для проверки, что пользователь авторизован и является преподавателем
 @login_required
 def create_test(request):
@@ -251,6 +252,11 @@ def submit_answer(request, session_id):
     question_id = request.POST.get('question_id')
     answer_id = request.POST.get('answer')
 
+    if not answer_id:
+        messages.error(request, 'Пожалуйста, выберите ответ!')
+        # Возвращаем пользователя на текущий вопрос, чтобы он мог выбрать ответ
+        return redirect('test_passing:test_execution', session_id=session_id)
+    
     # Проверяем, что ответ существует
     question = get_object_or_404(Question, id=question_id, test=test_session.test)
     answer = get_object_or_404(Answer, id=answer_id, question=question)

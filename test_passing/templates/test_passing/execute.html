@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест завершен</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}
+    Тест завершен
+{% endblock title %}
+
+{% block cont %}
     <h1>Вы завершили тест "{{ test.title }}"</h1>
     <p>Вы набрали {{ points }} из {{ max_points }} баллов.</p>
     <a href="{% url 'dashboard' %}">Вернуться на главную</a>
-</body>
-</html>
+{% endblock cont %}
+

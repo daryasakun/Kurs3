@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Время истекло</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
+    Время истекло
+{% endblock title %}
+
+{% block cont %}
     <h1>Время выполнения теста истекло</h1>
     <p>К сожалению, вы не успели завершить тест вовремя.</p>
     <a href="{% url 'users:profile' %}">Вернуться на главную</a>
-</body>
-</html>
+{% endblock cont %}
