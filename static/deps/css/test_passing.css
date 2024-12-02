@@ -9,49 +9,39 @@
     font-family: Arial, sans-serif;
 }
 
-/* Заголовок теста */
+/* Заголовок страницы */
 .test-container h1 {
     font-size: 24px;
     color: #333;
     margin-bottom: 20px;
 }
 
-/* Стили для блока вопроса */
-.question-block {
+/* Стиль для результатов */
+.test-container p {
+    font-size: 18px;
+    color: #333;
     margin-bottom: 20px;
 }
 
-/* Заголовок для каждого вопроса */
-.question-block h3 {
+/* Стиль для поздравлений */
+.congratulations {
     font-size: 20px;
-    color: #333;
-    margin-bottom: 10px;
+    color: #28a745; /* Зеленый для победы */
 }
 
-/* Стили для списка ответов */
-.answer-list {
-    list-style-type: none;
-    padding: 0;
+/* Стиль для хорошего результата */
+.good-result {
+    font-size: 18px;
+    color: #ffc107; /* Желтый для хорошего результата */
 }
 
-.answer-list li {
-    background-color: #f9f9f9;
-    margin: 5px 0;
-    padding: 8px;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+/* Стиль для попытки снова */
+.try-again {
+    font-size: 18px;
+    color: #dc3545; /* Красный для неудачи */
 }
 
-.answer-list li:hover {
-    background-color: #e9e9e9;
-}
-
-.answer-list li span {
-    font-weight: bold;
-    color: #007bff;
-}
-
-/* Стили для кнопок */
+/* Кнопки */
 .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -62,23 +52,41 @@
     text-decoration: none;
     transition: background-color 0.3s ease;
     text-align: center;
-    margin: 10px 0;
+    margin-top: 20px;
 }
 
 .btn:hover {
     background-color: #0056b3;
 }
 
-/* Кнопка: состояние при клике */
 .btn:active {
     background-color: #004085;
 }
 
-/* Стиль для действия с формами */
-.form-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Кнопка для сохранения */
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Кнопка для отмены */
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
 }
 
 /* Стили для ссылок */
@@ -91,6 +99,11 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Стили для контейнера ссылок */
+.link-actions {
+    margin-top: 20px;
+}
+
 /* Адаптивность для мобильных устройств */
 @media (max-width: 600px) {
     .test-container {
@@ -101,13 +114,18 @@ a:hover {
         font-size: 20px;
     }
 
-    .question-block h3 {
-        font-size: 18px;
+    .test-container p {
+        font-size: 16px;
     }
 
     .btn {
         padding: 8px 16px;
         font-size: 14px;
     }
-}
 
+    .congratulations,
+    .good-result,
+    .try-again {
+        font-size: 16px;
+    }
+}

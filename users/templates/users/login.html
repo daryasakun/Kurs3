@@ -1,13 +1,11 @@
 {% extends "base.html" %}
-
-
+{% load static %}
 {% block title %}
     <title>Форма авторизации</title>
 {% endblock %}
 
 {% block css %}
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'deps/css/login_form.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'deps/css/login_form.css' %}?v={{ timestamp }}">
 {% endblock %}
 
 {% block header %}
@@ -17,39 +15,45 @@
 {% endblock %}      
 
 {% block cont %}
-<form action="{% url 'users:login' %}" method="post" class="login-form">
-    {% csrf_token %}
-    {% if form.non_field_errors %}
-        <div class="alert alert-danger">
-            <p>Введены неверные данные</p>
+<div class="login-container">
+    <form action="{% url 'users:login' %}" method="post">
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                <p>Введены неверные данные</p>
+            </div>
+        {% endif %}
+        
+        <div class="form-group">
+            <label for="id_username">Имя пользователя</label>
+            <input type="text" name="username" class="form-control" id="id_username" placeholder="Введите ваш e-mail" value="{% if form.username.value %} {{form.username.value}}{% endif %}" required>
         </div>
-    {% endif %}
-    
-    <div>
-        <label for="id_username">Имя пользователя</label>
-        <input type="text" value="{% if form.username.value %} {{form.username.value}}{% endif %}" name="username" class="form-control" id="id_username" placeholder="Введите ваш e-mail" required>
-    </div>
-    <div>
-        <label for="id_password">Пароль</label>
-        <input type="password" class="form-control" value="{% if form.password.value %} {{form.password.value}}{% endif %}" name="password" id="id_password" placeholder="Введите ваш пароль" required>
-    </div>
-    {% if form.username.errors %}
-        <div class="alert alert-danger">
-            {{ form.username.errors }}
+        
+        <div class="form-group">
+            <label for="id_password">Пароль</label>
+            <input type="password" name="password" class="form-control" id="id_password" placeholder="Введите ваш пароль" value="{% if form.password.value %} {{form.password.value}}{% endif %}" required>
         </div>
-    {% endif %}
-    
-    {% if form.password.errors %}
-        <div class="alert alert-danger">
-            {{ form.password.errors }}
+        
+        {% if form.username.errors %}
+            <div class="alert alert-danger">
+                {{ form.username.errors }}
+            </div>
+        {% endif %}
+        
+        {% if form.password.errors %}
+            <div class="alert alert-danger">
+                {{ form.password.errors }}
+            </div>
+        {% endif %}
+        
+        <button type="submit">Войти</button>
+        
+        <div class="registration-link">
+            <a href="{% url 'users:registration' %}">Зарегистрироваться</a>
         </div>
-    {% endif %}
-    
-    <button type="submit">Войти</button>
-    <div class="registration-link">
-        <a href="{% url 'users:registration' %}" class="btn btn-primary">Зарегистрироваться</a>
-    </div>
-</form>
+    </form>
+</div>
 {% endblock %}
 
 

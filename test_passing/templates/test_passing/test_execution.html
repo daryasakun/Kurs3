@@ -1,30 +1,38 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}
     Прохождение теста: {{ test_session.test.title }}
 {% endblock title %}
 
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'deps/css/test_passing.css' %}?v={{ timestamp }}">   
+{% endblock css %}
+
+
 {% block cont %}
-    <h1>Тест: {{ test_session.test.title }}</h1>
-    <p id="timer"></p> <!-- Таймер будет обновляться через JavaScript -->
+    <div class="test-container">
+        <h1>Тест: {{ test_session.test.title }}</h1>
+        
+        <p id="timer" class="timer"></p> <!-- Таймер будет обновляться через JavaScript -->
 
-    <h2>Вопрос: {{ question.text }}</h2>
+        <h2>Вопрос: {{ question.text }}</h2>
 
-    <form action="{% url 'test_passing:submit_answer' session_id=test_session.id %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="question_id" value="{{ question.id }}">
+        <form action="{% url 'test_passing:submit_answer' session_id=test_session.id %}" method="post" class="test-form">
+            {% csrf_token %}
+            <input type="hidden" name="question_id" value="{{ question.id }}">
 
-        {% for answer in question.answer_set.all %}
-            <div>
-                <label>
-                    <input type="radio" name="answer" value="{{ answer.id }}">
-                    {{ answer.text }}
-                </label>
-            </div>
-        {% endfor %}
+            {% for answer in question.answer_set.all %}
+                <div class="answer-option">
+                    <label>
+                        <input type="radio" name="answer" value="{{ answer.id }}">
+                        {{ answer.text }}
+                    </label>
+                </div>
+            {% endfor %}
 
-        <button type="submit">Ответить</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Ответить</button>
+        </form>
+    </div>
 
     <script>
         // Проверяем, что test_session.end_time передан корректно

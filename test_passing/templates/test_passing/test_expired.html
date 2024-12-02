@@ -1,11 +1,21 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
     Время истекло
 {% endblock title %}
 
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'deps/css/test_passing.css' %}?v={{ timestamp }}">   
+{% endblock css %}
+
 {% block cont %}
-    <h1>Время выполнения теста истекло</h1>
-    <p>К сожалению, вы не успели завершить тест вовремя.</p>
-    <a href="{% url 'users:profile' %}">Вернуться на главную</a>
+    <div class="test-container">
+        <h1>Время выполнения теста истекло</h1>
+        <p>К сожалению, вы не успели завершить тест вовремя.</p>
+        <div class="link-actions">
+            <a href="{% url 'users:profile' %}" class="btn btn-secondary">Вернуться на главную</a>
+        </div>
+    </div>
 {% endblock cont %}
+

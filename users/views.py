@@ -90,7 +90,7 @@ def user_profile(request):
     else:
         created_tests_page_obj = []  # Пустая пагинация для преподавателя
 
-    # Поиск и сортировка для студента
+    # Поиск 
     available_search_query = request.GET.get('available_search', '')
     available_sort_order = request.GET.get('available_sort', 'title')
 

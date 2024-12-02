@@ -1,21 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'deps/css/test_passing.css' %}?v={{ timestamp }}">    
+{% endblock css %}
 
 {% block title %}
     Результаты теста
 {% endblock title %}
 
 {% block cont %}
-    <h1>Результаты теста: {{ test.title }}</h1>
-    <p>Вы набрали {{ points }} из {{ max_points }} баллов.</p>
+    <div class="test-container">
+        <h1>Результаты теста: {{ test.title }}</h1>
+        <p>Вы набрали {{ points }} из {{ max_points }} баллов.</p>
 
-    {% if points == max_points %}
-        <p>Поздравляем! Вы ответили на все вопросы правильно.</p>
-    {% elif points > 0 %}
-        <p>Хороший результат! Попробуйте улучшить свои знания.</p>
-    {% else %}
-        <p>В этот раз не повезло. Попробуйте снова!</p>
-    {% endif %}
+        {% if points == max_points %}
+            <p class="congratulations">Поздравляем! Вы ответили на все вопросы правильно.</p>
+        {% elif points > 0 %}
+            <p class="good-result">Хороший результат! Попробуйте улучшить свои знания.</p>
+        {% else %}
+            <p class="try-again">В этот раз не повезло. Попробуйте снова!</p>
+        {% endif %}
 
-    <a href="{% url 'users:profile' %}">Вернуться на главную</a>
+        <div class="link-actions">
+            <a href="{% url 'users:profile' %}" class="btn btn-secondary">Вернуться на главную</a>
+        </div>
+    </div>
 {% endblock cont %}
+
 

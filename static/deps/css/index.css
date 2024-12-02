@@ -1,0 +1,69 @@
+/* Общий стиль для контейнера главной страницы */
+.main-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+/* Заголовок главной страницы */
+.main-container h1 {
+    font-size: 30px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Заголовок о тестировании */
+.main-container h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Параграфы для текста на главной странице */
+.main-container p {
+    font-size: 16px;
+    color: #007bff;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Изображение (логотип или баннер) */
+.main-container img {
+    max-width: 100%;
+    margin-top: 30px;
+    border-radius: 8px;
+}
+
+/* Стили для ссылки */
+.main-container a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.main-container a:hover {
+    text-decoration: underline;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+    .main-container {
+        padding: 15px;
+    }
+
+    .main-container h1 {
+        font-size: 26px;
+    }
+
+    .main-container h2 {
+        font-size: 20px;
+    }
+
+    .main-container p {
+        font-size: 14px;
+    }
+}

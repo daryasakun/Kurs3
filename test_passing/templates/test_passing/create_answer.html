@@ -1,31 +1,43 @@
 
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}
     Добавить ответы
 {% endblock title %}
 
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'deps/css/test_passing.css' %}?v={{ timestamp }}">    
+{% endblock css %}
+
+
 {% block cont %}
-    <h1>Добавить ответы для вопроса: {{ question.text }}</h1>
+    <div class="test-container">
+        <h1>Добавить ответы для вопроса: {{ question.text }}</h1>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ formset.management_form }}  <!-- Отображаем формы для ответов -->
+        <form method="post" class="test-form">
+            {% csrf_token %}
+            {{ formset.management_form }} <!-- Отображаем формы для ответов -->
 
-        {% for form in formset %}
-            <div class="answer-form">
-                <h3>Ответ {{ forloop.counter }}</h3>
-                {{ form.as_p }}  <!-- Отображение полей для ответа: текст ответа и правильность -->
-            </div>
-        {% endfor %}
-        
-        <button type="submit">Сохранить ответы</button>
-    </form>
+            {% for form in formset %}
+                <div class="answer-form">
+                    <h3>Ответ {{ forloop.counter }}</h3>
+                    {{ form.as_p }} <!-- Отображение полей для ответа: текст ответа и правильность -->
+                </div>
+            {% endfor %}
 
-    <!-- Ссылка для добавления еще одного ответа -->
-    <hr>
-    <a href="{% url 'test_passing:create_answer' question_id=question.id %}">Добавить еще один ответ</a>
-    <a href="{% url 'test_passing:create_question' test_id=question.test.id %}">Завершить создание ответов и перейти к вопросам (не забудьте сохранить)</a>
+            <button type="submit" class="btn btn-success">Сохранить ответы</button>
+        </form>
+
+        <hr>
+
+        <!-- Ссылка для добавления еще одного ответа -->
+        <div class="link-actions">
+            <a href="{% url 'test_passing:create_answer' question_id=question.id %}" class="btn btn-primary">
+                Добавить еще один ответ
+            </a>
+            <a href="{% url 'test_passing:create_question' test_id=question.test.id %}" class="btn btn-secondary">
+                Завершить создание ответов и перейти к вопросам (не забудьте сохранить)
+            </a>
+        </div>
+    </div>
 {% endblock cont %}
-
-

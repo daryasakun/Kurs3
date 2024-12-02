@@ -1,44 +1,56 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}
     Редактирование теста: {{ test.title }}
 {% endblock title %}
 
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'deps/css/test_passing.css' %}?v={{ timestamp }}">
+{% endblock %}
+
 {% block cont %}
-    <h1>Редактировать тест: {{ test.title }}</h1>
-    
+    <div class="test-container">
+        <h1>Редактировать тест: {{ test.title }}</h1>
 
-    <!-- Информация о прохождении теста -->
-    <div>
-        <p><strong>Количество студентов, прошедших тест:</strong> {{ students_comp }}</p>
-        <p><strong>Количество студентов, получивших 0 баллов:</strong> {{ zero_score }}</p>
-    </div>
+        <!-- Информация о прохождении теста -->
+        <div class="info-box">
+            <p><strong>Количество студентов, прошедших тест:</strong> {{ students_comp }}</p>
+            <p><strong>Количество студентов, получивших 0 баллов:</strong> {{ zero_score }}</p>
+        </div>
 
-    <form method="post">
-        {% csrf_token %}
-        <h2>Основные данные теста</h2>
-        {{ form.as_p }}
-
-
-        <a href="{% url 'test_passing:create_question' test.id %}">Редактировать вопросы и ответы теста {{ test.title }}</a>
-        <h2>Вопросы</h2>
-        {{ question_formset.management_form }}
-        {% for form in question_formset %}
-            <div>
+        <form method="post" class="test-form">
+            {% csrf_token %}
+            <h2>Основные данные теста</h2>
+            <div class="form-group">
                 {{ form.as_p }}
-                {% if form.instance.pk %}
-                    <p><a href="{% url 'test_passing:delete_question' form.instance.pk %}">Удалить вопрос</a></p>
-                {% endif %}
             </div>
-        {% endfor %}
 
-        {% if request.user.is_authenticated and test.teacher == request.user.teacher %}
-            <button type="submit">Сохранить</button>
-        {% else %}
-            <p>У вас нет прав редактировать этот тест.</p>
-        {% endif %}
-        
-        <a href="{% url 'test_passing:test_detail' test.pk %}">Отмена</a>
-    </form>
+            <div class="question-edit-link">
+                <a href="{% url 'test_passing:create_question' test.id %}" class="btn btn-primary">
+                    Редактировать вопросы и ответы теста "{{ test.title }}"
+                </a>
+            </div>
+
+            <h2>Вопросы</h2>
+            {{ question_formset.management_form }}
+            {% for form in question_formset %}
+                <div class="question-block">
+                    {{ form.as_p }}
+                    {% if form.instance.pk %}
+                        <p><a href="{% url 'test_passing:delete_question' form.instance.pk %}" class="btn btn-danger">Удалить вопрос</a></p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            {% if request.user.is_authenticated and test.teacher == request.user.teacher %}
+                <button type="submit" class="btn btn-success">Сохранить</button>
+            {% else %}
+                <p>У вас нет прав редактировать этот тест.</p>
+            {% endif %}
+
+            <div class="cancel-link">
+                <a href="{% url 'test_passing:test_detail' test.pk %}" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
 {% endblock cont %}
-
