@@ -9,6 +9,7 @@ from results.models import Result
 from django.http import HttpResponseForbidden
 from django.utils.timezone import now
 from django.contrib import messages
+from django.db.models import Count, Q
 # Декоратор для проверки, что пользователь авторизован и является преподавателем
 @login_required
 def create_test(request):
@@ -96,6 +97,11 @@ def edit_test(request, pk):
     if not hasattr(request.user, 'teacher') or test.teacher != request.user.teacher:
         raise PermissionDenied("У вас нет прав редактировать этот тест.")
     
+    students_comp = Result.objects.filter(test=test).count()
+
+    # Подсчет количества студентов, получивших 0 баллов
+    zero_score = Result.objects.filter(test=test, number_of_points=0).count()
+
     if request.method == 'POST':
         form = TestForm(request.POST, instance=test)
         question_formset = QuestionFormset(request.POST, instance=test)
@@ -111,6 +117,8 @@ def edit_test(request, pk):
         'form': form,
         'question_formset': question_formset,
         'test': test,
+        'students_comp': students_comp,
+        'zero_score': zero_score,
     })
 
 
@@ -208,6 +216,8 @@ def test_completion(request, session_id):
     test_session = get_object_or_404(TestSession, id=session_id, student=request.user.student)
     
     if not test_session.completed:
+        test_session.completed = True
+        test_session.save()
         # Если тест еще не завершен, перенаправляем на выполнение
         return redirect('test_passing:test_execution', session_id=session_id)
     
@@ -228,6 +238,20 @@ def test_completion(request, session_id):
         if user_answer and user_answer.answer == correct_answer:
             total_points += 1
 
+    # Сохраняем результат теста в модель `Result`
+    result, created = Result.objects.get_or_create(
+        student=request.user.student,
+        test=test,
+        defaults={
+            'number_of_points': total_points,
+            'date_of_passing': now()  # Дата завершения теста
+        }
+    )
+    if not created:
+        result.number_of_points = total_points
+        result.date_of_passing = now()
+        result.save()
+
     context = {
         'test': test,
         'points': total_points,
@@ -235,7 +259,6 @@ def test_completion(request, session_id):
     }
 
     return render(request, 'test_passing/test_completion.html', context)
-
 
 
 # Сохранение ответа на вопрос
@@ -321,3 +344,4 @@ def test_start(request, test_id):
 
     # Отображаем страницу старта теста (начало теста)
     return render(request, 'test_passing/start_test.html', context)
+#пагинация - постраничный вывод , поиск, сортировка, статистика

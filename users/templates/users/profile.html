@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 
 {% block title %}
@@ -11,39 +10,172 @@
     <p><strong>Имя:</strong> {{ user.full_name }}</p>
     <p><strong>Email:</strong> {{ user.email }}</p>
 
-    {% if user.is_authenticated and user.teacher %}
+{% if user.is_authenticated and user.teacher %}
+    <form method="get">
+        <input type="text" name="created_search" placeholder="Поиск по названию" value="{{ request.GET.created_search }}">
+        <select name="created_sort">
+            <option value="title" {% if request.GET.created_sort == "title" %}selected{% endif %}>По названию (А-Я)</option>
+            <option value="title_desc" {% if request.GET.created_sort == "title_desc" %}selected{% endif %}>По названию (Я-А)</option>
+        </select>
+        <button type="submit">Поиск</button>
+    </form>
+
+    {% if created_tests %}
         <h2>Мои тесты</h2>
-        <ul>
+        <ul class="test-list">
             {% for test in created_tests %}
                 <li>
                     <a href="{% url 'test_passing:edit_test' test.id %}">{{ test.title }}</a>
                 </li>
-            {% empty %}
-                <li>Вы еще не создали ни одного теста.</li>
             {% endfor %}
         </ul>
 
-        <a href="{% url 'test_passing:create_test' %}" class="btn btn-primary">Создать тест</a>
+        <div class="pagination">
+            <span class="step-links">
+                {% if created_tests.has_previous %}
+                    <a href="?created_page=1&created_search={{ request.GET.created_search }}&created_sort={{ request.GET.created_sort }}">Первая</a>
+                    <a href="?created_page={{ created_tests.previous_page_number }}&created_search={{ request.GET.created_search }}&created_sort={{ request.GET.created_sort }}">Предыдущая</a>
+                {% endif %}
+
+                <span class="current">
+                    Страница {{ created_tests.number }} из {{ created_tests.paginator.num_pages }}
+                </span>
+
+                {% if created_tests.has_next %}
+                    <a href="?created_page={{ created_tests.next_page_number }}&created_search={{ request.GET.created_search }}&created_sort={{ request.GET.created_sort }}">Следующая</a>
+                    <a href="?created_page={{ created_tests.paginator.num_pages }}&created_search={{ request.GET.created_search }}&created_sort={{ request.GET.created_sort }}">Последняя</a>
+                {% endif %}
+            </span>
+        </div>
     {% else %}
-        <p>Вы не являетесь преподавателем.</p>
+        <p>Вы еще не создали ни одного теста.</p>
     {% endif %}
-
-
-
-    {% if user.is_authenticated and user.student %}
-    <h2>Доступные тесты</h2>
-    <ul>
-        {% for test in created_tests %}
-            <li>
-                <a href="{% url 'test_passing:test_start' test.id %}">{{ test.title }}</a> - Время выполнения: {{ test.time_of_execute }}
-            </li>
-        {% empty %}
-            <li>Вы не имеете доступных тестов.</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>Вы не являетесь студентом.</p>
 {% endif %}
 
+{% if user.is_authenticated and user.student %}
+    <form method="get">
+        <input type="text" name="available_search" placeholder="Поиск по названию" value="{{ request.GET.available_search }}">
+        <select name="available_sort">
+            <option value="title" {% if request.GET.available_sort == "title" %}selected{% endif %}>По названию (А-Я)</option>
+            <option value="title_desc" {% if request.GET.available_sort == "title_desc" %}selected{% endif %}>По названию (Я-А)</option>
+        </select>
+        <button type="submit">Поиск</button>
+    </form>
 
+    {% if available_tests %}
+        <h2>Доступные тесты</h2>
+        <ul class="test-list">
+            {% for test in available_tests %}
+                <li>
+                    <a href="{% url 'test_passing:test_start' test.id %}">{{ test.title }}</a> - Время выполнения: {{ test.time_of_execute }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if available_tests.has_previous %}
+                    <a href="?available_page=1&available_search={{ request.GET.available_search }}&available_sort={{ request.GET.available_sort }}">Первая</a>
+                    <a href="?available_page={{ available_tests.previous_page_number }}&available_search={{ request.GET.available_search }}&available_sort={{ request.GET.available_sort }}">Предыдущая</a>
+                {% endif %}
+
+                <span class="current">
+                    Страница {{ available_tests.number }} из {{ available_tests.paginator.num_pages }}
+                </span>
+
+                {% if available_tests.has_next %}
+                    <a href="?available_page={{ available_tests.next_page_number }}&available_search={{ request.GET.available_search }}&available_sort={{ request.GET.available_sort }}">Следующая</a>
+                    <a href="?available_page={{ available_tests.paginator.num_pages }}&available_search={{ request.GET.available_search }}&available_sort={{ request.GET.available_sort }}">Последняя</a>
+                {% endif %}
+            </span>
+        </div>
+    {% else %}
+        <p>Вы не имеете доступных тестов.</p>
+    {% endif %}
+{% endif %}
+
+<style>
+    /* Общий стиль для заголовков */
+    h1, h2 {
+        font-family: Arial, sans-serif;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    /* Стили для списка тестов */
+    .test-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .test-list li {
+        background-color: #f9f9f9;
+        margin: 5px 0;
+        padding: 10px 15px;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }
+
+    .test-list li:hover {
+        background-color: #e9e9e9;
+    }
+
+    .test-list li a {
+        text-decoration: none;
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .test-list li a:hover {
+        text-decoration: underline;
+    }
+
+    /* Стили для блока пагинации */
+    .pagination {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .pagination .step-links {
+        display: inline-block;
+    }
+
+    .pagination a {
+        display: inline-block;
+        padding: 8px 12px;
+        margin: 0 5px;
+        text-decoration: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .pagination a:hover {
+        background-color: #0056b3;
+    }
+
+    .pagination .current {
+        display: inline-block;
+        padding: 8px 12px;
+        margin: 0 5px;
+        background-color: #6c757d;
+        color: white;
+        border-radius: 5px;
+    }
+
+    /* Адаптивность для мобильных устройств */
+    @media (max-width: 600px) {
+        .test-list li {
+            font-size: 14px;
+        }
+
+        .pagination a, .pagination .current {
+            padding: 6px 10px;
+            font-size: 14px;
+        }
+    }
+</style>
 {% endblock cont %}

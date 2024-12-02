@@ -3,15 +3,25 @@
 {% block title %}
     Начало теста
 {% endblock title %}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'deps/css/test_passing.css' %}">
+{% endblock css %}
 
 {% block cont %}
+<div class="test-container">
     <h1>Добро пожаловать в тест "{{ test.title }}"</h1>
     <p>Описание теста: {{ test.description }}</p>
     <p>Предметная область: {{ test.subject_area }}</p>
-    <p>Время выполнения: {{ test.time_of_execute }}</p>
+    <p>Время выполнения: {{ test.time_of_execute }} минут</p>
 
-    <form action="{% url 'test_passing:start_test' test.id %}" method="post">
+    <form action="{% url 'test_passing:start_test' test.id %}" method="post" class="start-test-form">
         {% csrf_token %}
-        <button type="submit">Начать тест</button>
+        <button type="submit" class="btn btn-primary">Начать тест</button>
     </form>
+</div>
+
+    
+
+    
 {% endblock cont %}

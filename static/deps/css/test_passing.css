@@ -1,0 +1,113 @@
+/* Общий стиль для контейнера страницы */
+.test-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+}
+
+/* Заголовок теста */
+.test-container h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Стили для блока вопроса */
+.question-block {
+    margin-bottom: 20px;
+}
+
+/* Заголовок для каждого вопроса */
+.question-block h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Стили для списка ответов */
+.answer-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.answer-list li {
+    background-color: #f9f9f9;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.answer-list li:hover {
+    background-color: #e9e9e9;
+}
+
+.answer-list li span {
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Стили для кнопок */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Кнопка: состояние при клике */
+.btn:active {
+    background-color: #004085;
+}
+
+/* Стиль для действия с формами */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Стили для ссылок */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+    .test-container {
+        padding: 15px;
+    }
+
+    .test-container h1 {
+        font-size: 20px;
+    }
+
+    .question-block h3 {
+        font-size: 18px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+

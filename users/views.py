@@ -6,7 +6,8 @@ from django.http import HttpResponseRedirect
 from test_passing.models import Test
 from django.utils.functional import SimpleLazyObject
 from users.models import Teacher, User, Student
-
+from django.core.paginator import Paginator
+from django.db.models.functions import Lower
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 def login(request):
@@ -60,25 +61,62 @@ def registration(request):
 def logout(request):
     return render(request, 'users/logout.html')
 
+
 @login_required
 def user_profile(request):
     user = request.user
-    #print(isinstance(user, Student))
-    
 
+    # Поиск и сортировка для преподавателя
+    created_search_query = request.GET.get('created_search', '')
+    created_sort_order = request.GET.get('created_sort', 'title')  # Сортировка по умолчанию - по названию
 
-    # Если это преподаватель, то получаем его тесты
     if hasattr(user, 'teacher'):
         created_tests = Test.objects.filter(teacher_id=user.id)
-        print(f"Created tests: {created_tests}")
+
+        # Поиск по названию теста
+        if created_search_query:
+            created_tests = created_tests.filter(title__icontains=created_search_query)
+
+        # Сортировка по полю 'title' без учета регистра
+        if created_sort_order == 'title_desc':
+            created_tests = created_tests.order_by(Lower('title').desc())
+        else:
+            created_tests = created_tests.order_by(Lower('title').asc())
+
+        # Пагинация
+        created_tests_paginator = Paginator(created_tests, 5)
+        created_tests_page_number = request.GET.get('created_page')
+        created_tests_page_obj = created_tests_paginator.get_page(created_tests_page_number)
     else:
-        created_tests = []
+        created_tests_page_obj = []  # Пустая пагинация для преподавателя
+
+    # Поиск и сортировка для студента
+    available_search_query = request.GET.get('available_search', '')
+    available_sort_order = request.GET.get('available_sort', 'title')
 
     if hasattr(user, 'student'):
-        created_tests = Test.objects.all()  # Все тесты
+        available_tests = Test.objects.all()
+
+        # Поиск по названию теста
+        if available_search_query:
+            available_tests = available_tests.filter(title__icontains=available_search_query)
+
+        # Сортировка по полю 'title' без учета регистра
+        if available_sort_order == 'title_desc':
+            available_tests = available_tests.order_by(Lower('title').desc())
+        else:
+            available_tests = available_tests.order_by(Lower('title').asc())
+
+        # Пагинация
+        available_tests_paginator = Paginator(available_tests, 5)
+        available_tests_page_number = request.GET.get('available_page')
+        available_tests_page_obj = available_tests_paginator.get_page(available_tests_page_number)
+    else:
+        available_tests_page_obj = []  # Пустая пагинация для студента
 
     context = {
         'user': user,
-        'created_tests': created_tests
+        'created_tests': created_tests_page_obj,
+        'available_tests': available_tests_page_obj
     }
     return render(request, 'users/profile.html', context)

@@ -1,28 +1,100 @@
-.form-control {
-    display: block;                /* Устанавливает элемент как блочный */
-    width: 100%;                  /* Ширина 100% от родительского контейнера */
-    padding: 10px;               /* Внутренние отступы */
-    font-size: 1rem;             /* Размер шрифта */
-    font-family: Arial, sans-serif; /* Шрифт */
-    color: #495057;              /* Цвет текста */
-    background-color: #fff;      /* Цвет фона */
-    border: 1px solid #ced4da;   /* Цвет границы */
-    border-radius: 0.25rem;      /* Радиус границы */
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Плавный переход для границ и теней */
+/* Общий стиль для страницы авторизации */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa;
+    margin: 0;
+    padding: 0;
 }
 
-.form-control:focus {
-    border-color: #80bdff;       /* Цвет границы при фокусе */
-    outline: 0;                  /* Убираем стандартный контур */
-    box-shadow: 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Тень при фокусе */
+/* Стиль для контейнера формы */
+.login-form {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.form-control::placeholder {
-    color: #6c757d;              /* Цвет плейсхолдера */
-    opacity: 1;                  /* Прозрачность плейсхолдера */
+/* Заголовок формы */
+.login-form h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
 }
 
-.form-control:disabled, .form-control[readonly] {
-    background-color: #e9ecef;   /* Цвет фона для отключенных полей */
-    opacity: 1;                  /* Убираем прозрачность */
+/* Стили для полей ввода */
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
 }
+
+/* Фокус на полях ввода */
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Стили для меток */
+.login-form label {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Стиль для кнопки отправки */
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Кнопка при наведении */
+.login-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для ошибок */
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+    .login-form {
+        padding: 15px;
+    }
+
+    .login-form h2 {
+        font-size: 20px;
+    }
+
+    .login-form input[type="text"],
+    .login-form input[type="password"],
+    .login-form button {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
